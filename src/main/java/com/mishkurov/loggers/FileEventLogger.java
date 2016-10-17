@@ -1,5 +1,6 @@
-package com.mishkurov;
+package com.mishkurov.loggers;
 
+import com.mishkurov.Event;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

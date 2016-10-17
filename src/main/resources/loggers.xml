@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="
  		http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean id="consoleEventLogger" class="com.mishkurov.ConsoleEventLogger"/>
-    <bean id="fileEventLogger" class="com.mishkurov.FileEventLogger" init-method="init">
+    <bean id="consoleEventLogger" class="com.mishkurov.loggers.ConsoleEventLogger"/>
+    <bean id="fileEventLogger" class="com.mishkurov.loggers.FileEventLogger" init-method="init">
         <constructor-arg type="String" value="eventlog.txt"/>
     </bean>
-    <bean id="cacheFileEventLogger" class="com.mishkurov.CacheFileEventLogger"
+
+    <util:list id="loggerList">
+        <ref bean="consoleEventLogger"/>
+        <ref bean="fileEventLogger"/>
+    </util:list>
+    <bean id="cacheFileEventLogger" class="com.mishkurov.loggers.CacheFileEventLogger"
           parent="fileEventLogger" destroy-method="destroy">
         <constructor-arg type="java.lang.Integer" value="3"/>
     </bean>
@@ -23,12 +29,9 @@
             </bean>
         </constructor-arg>
     </bean>
-    <bean id="combinedEventLogger" class="com.mishkurov.CombinedEventLogger">
-        <constructor-arg >
-            <list>
-                <ref bean="consoleEventLogger"/>
-                <ref bean="fileEventLogger"/>
-            </list>
+    <bean id="combinedEventLogger" class="com.mishkurov.loggers.CombinedEventLogger">
+        <constructor-arg>
+            <ref bean="loggerList"></ref>
         </constructor-arg>
     </bean>
 

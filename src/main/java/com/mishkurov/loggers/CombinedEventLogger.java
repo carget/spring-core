@@ -1,4 +1,6 @@
-package com.mishkurov;
+package com.mishkurov.loggers;
+
+import com.mishkurov.Event;
 
 import java.util.Collection;
 

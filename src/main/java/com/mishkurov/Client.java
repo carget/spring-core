@@ -4,16 +4,16 @@ package com.mishkurov;
  * @author Anton_Mishkurov
  */
 public class Client {
-    private int id;
+    private Integer id;
     private String fullName;
     private String greeting;
 
-    public Client(int id, String fullName) {
+    public Client(Integer id, String fullName) {
         this.id = id;
         this.fullName = fullName;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
