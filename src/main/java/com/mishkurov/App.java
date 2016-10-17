@@ -1,9 +1,7 @@
 package com.mishkurov;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.time.LocalDate;
 
 /**
  * @author Anton_Mishkurov
@@ -28,10 +26,14 @@ public class App {
 //        app.client = new Client(1, "John Smith");
 //        app.eventLogger = new ConsoleEventLogger();
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
         App app = context.getBean(App.class);
         Event event = (Event) context.getBean("event");
         event.setMessage("Some event for user 1");
         app.logEvent(event);
+        event = (Event) context.getBean("event");
+        event.setMessage("Some event for user 2");
+        app.logEvent(event);
+        context.close();
     }
 }

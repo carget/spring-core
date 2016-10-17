@@ -10,6 +10,7 @@
 
     <properties>
         <spring.ver>4.3.3.RELEASE</spring.ver>
+        <commons.io.ver>2.4</commons.io.ver>
     </properties>
 
     <build>
@@ -46,6 +47,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.ver}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.ver}</version>
         </dependency>
     </dependencies>
 

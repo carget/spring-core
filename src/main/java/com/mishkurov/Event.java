@@ -1,6 +1,8 @@
 package com.mishkurov;
 
+import java.text.DateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author Anton_Mishkurov
@@ -9,10 +11,11 @@ public class Event {
     private int id;
     private String message;
     private LocalDate date;
+    private DateTimeFormatter dateFormat;
 
-    public Event(LocalDate date) {
+    public Event(LocalDate date, DateTimeFormatter dateFormat) {
+        this.dateFormat = dateFormat;
         this.id = (int) (Math.random() * Integer.MAX_VALUE);
-//        this.message = message;
         this.date = date;
     }
 
@@ -37,7 +40,7 @@ public class Event {
         return "Event{" +
                 "id=" + id +
                 ", message='" + message + '\'' +
-                ", date=" + date +
+                ", date=" + dateFormat.format(date) +
                 '}';
     }
 }

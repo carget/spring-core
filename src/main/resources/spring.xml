@@ -8,22 +8,32 @@
     <bean id="client" class="com.mishkurov.Client">
         <constructor-arg value="1"/>
         <constructor-arg value="John Smith"/>
-
     </bean>
 
-    <bean id="eventLogger" class="com.mishkurov.ConsoleEventLogger" />
+    <bean id="consoleEventLogger" class="com.mishkurov.ConsoleEventLogger"/>
 
     <bean id="app" class="com.mishkurov.App ">
-        <constructor-arg  ref="client"/>
-        <constructor-arg ref="eventLogger"/>
+        <constructor-arg ref="client"/>
+        <constructor-arg ref="cacheFileEventLogger"/>
     </bean>
 
     <bean id="event" class="com.mishkurov.Event" scope="prototype">
         <constructor-arg>
-            <bean class="java.time.LocalDate" scope="prototype" factory-method="now">
-
+            <bean class="java.time.LocalDate" scope="prototype" factory-method="now"/>
+        </constructor-arg>
+        <constructor-arg>
+            <bean class="java.time.format.DateTimeFormatter" factory-method="ofPattern">
+                <constructor-arg type="String" value="dd MM yyyy"/>
             </bean>
         </constructor-arg>
     </bean>
 
+    <bean id="fileEventLogger" class="com.mishkurov.FileEventLogger" init-method="init">
+        <constructor-arg type="String" value="eventlog.txt"/>
+    </bean>
+
+    <bean id="cacheFileEventLogger" class="com.mishkurov.CacheFileEventLogger" init-method="init" destroy-method="destroy">
+        <constructor-arg type="java.lang.String" value="eventlog.txt"/>
+        <constructor-arg type="java.lang.Integer" value="3"/>
+    </bean>
 </beans>
