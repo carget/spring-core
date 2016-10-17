@@ -11,9 +11,15 @@
         <property name="greeting" value="Hello there ! ;-)"/>
     </bean>
 
-    <bean id="app" class="com.mishkurov.App ">
+    <bean id="app" class="com.mishkurov.App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="cacheFileEventLogger"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO" value-ref="consoleEventLogger" />
+                <entry key="ERROR" value-ref="combinedEventLogger" />
+            </map>
+        </constructor-arg>
     </bean>
 
 </beans>

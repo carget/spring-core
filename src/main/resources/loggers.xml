@@ -23,5 +23,13 @@
             </bean>
         </constructor-arg>
     </bean>
+    <bean id="combinedEventLogger" class="com.mishkurov.CombinedEventLogger">
+        <constructor-arg >
+            <list>
+                <ref bean="consoleEventLogger"/>
+                <ref bean="fileEventLogger"/>
+            </list>
+        </constructor-arg>
+    </bean>
 
 </beans>
