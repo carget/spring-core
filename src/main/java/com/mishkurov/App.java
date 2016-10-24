@@ -1,14 +1,17 @@
 package com.mishkurov;
 
+import com.mishkurov.javaconfig.AppConfig;
 import com.mishkurov.loggers.EventLogger;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 /**
  * @author Anton_Mishkurov
  */
+@Component
 public class App {
 
     private Client client;
@@ -27,15 +30,11 @@ public class App {
             logger = defaultLogger;
         }
         logger.logEvent(event);
-//        String message = event.toString().replaceAll(String.valueOf(client.getId()), client.getFullName());
     }
 
     public static void main(String[] args) {
-//        App app = new App();
-//        app.client = new Client(1, "John Smith");
-//        app.eventLogger = new ConsoleEventLogger();
 
-        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         App app = context.getBean(App.class);
         Event event = (Event) context.getBean("event");
         event.setMessage("Some event for error");
@@ -43,6 +42,5 @@ public class App {
         event = (Event) context.getBean("event");
         event.setMessage("event info 2");
         app.logEvent(EventType.INFO, event);
-        context.close();
     }
 }
