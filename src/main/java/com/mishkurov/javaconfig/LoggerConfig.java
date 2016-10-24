@@ -44,6 +44,8 @@ public class LoggerConfig {
 
     @Bean(name = "combinedEventLogger")
     public CombinedEventLogger combinedEventLogger(
+            //// TODO: 10/24/2016  create list from beans
+//            @Value("#{consoleEventLogger,fileEventLogger}") List<EventLogger> loggers,
             @Qualifier("consoleEventLogger") EventLogger logger1,
             @Qualifier("fileEventLogger") EventLogger logger2) {
         List<EventLogger> eventLoggers = new ArrayList<>();

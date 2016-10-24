@@ -5,6 +5,7 @@ import com.mishkurov.Client;
 import com.mishkurov.EventType;
 import com.mishkurov.loggers.EventLogger;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +32,7 @@ public class OtherConfig {
 
     @Bean("app")
     public App app(@Qualifier("client") Client client,
-                   @Qualifier("cacheFileEventLogger") EventLogger logger,
+                   @Value("#{T(com.mishkurov.Event).isDay() ? fileEventLogger : consoleEventLogger}") EventLogger logger,
                    @Qualifier("loggerMap") Map<EventType, EventLogger> loggerMap) {
         return new App(client, logger, loggerMap);
     }

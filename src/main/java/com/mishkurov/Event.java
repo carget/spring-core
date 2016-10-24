@@ -1,9 +1,7 @@
 package com.mishkurov;
 
-import org.springframework.stereotype.Component;
-
-import java.text.DateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -45,5 +43,10 @@ public class Event {
                 ", message='" + message + '\'' +
                 ", date=" + dateFormat.format(date) +
                 '}';
+    }
+
+    public static boolean isDay() {
+        LocalTime now = LocalTime.now();
+        return now.isAfter(LocalTime.of(8, 0)) && now.isBefore(LocalTime.of(17, 0));
     }
 }
