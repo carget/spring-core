@@ -3,6 +3,7 @@ package com.mishkurov;
 import com.mishkurov.javaconfig.AppConfig;
 import com.mishkurov.loggers.EventLogger;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +35,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         App app = context.getBean(App.class);
         Event event = (Event) context.getBean("event");
         event.setMessage("Some event for error");
@@ -42,5 +43,6 @@ public class App {
         event = (Event) context.getBean("event");
         event.setMessage("event info 2");
         app.logEvent(EventType.INFO, event);
+        context.close();
     }
 }
